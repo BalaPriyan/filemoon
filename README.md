@@ -25,7 +25,7 @@ This is a Python wrapper for the FileMoon API. It allows you to interact with va
 ## Installation
 
 ```bash
-pip install requests
+pip install filemoon
 ```
 
 ## Usage

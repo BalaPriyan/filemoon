@@ -1,11 +1,9 @@
 import requests
-import re
-import sys
 from typing import Optional
 
 class FileMoon:
-  def __init__(self, api_key:str, base_url:'https://filemoonapi.com/api/'):
-      """
+    def __init__(self, api_key: str, base_url: str = 'https://filemoonapi.com/api/'):
+        """
         init
 
         Args:
@@ -14,7 +12,6 @@ class FileMoon:
         """
         self.api_key = api_key
         self.base_url = base_url
-
 
     def _req(self, url: str) -> dict:
         """requests to api
@@ -27,13 +24,12 @@ class FileMoon:
         try:
             r = requests.get(url)
             response = r.json()
-            if response["msg"] == "Wrong Auth":
-                Exception("Invalid API key, please check your API key")
+            if response.get("msg") == "Wrong Auth":
+                raise Exception("Invalid API key, please check your API key")
             else:
                 return response
-        except ConnectionError as e:
-            Exception(e)
-
+        except requests.ConnectionError as e:
+            raise Exception(e)
 
     def account_info(self) -> dict:
         """
@@ -45,10 +41,7 @@ class FileMoon:
         url = f"{self.base_url}account/info?key={self.api_key}"
         return self._req(url)
 
-    def account_stats(
-        self,
-        last: Optional[str] = None,
-    ) -> dict:
+    def account_stats(self, last: Optional[str] = None) -> dict:
         """
         Get reports of your account (default last 7 days)
 
@@ -58,33 +51,28 @@ class FileMoon:
             dict: response
         """
         url = f"{self.base_url}account/stats?key={self.api_key}"
-        if last != None:
+        if last is not None:
             url += f"&last={last}"
         return self._req(url)
 
-
-    def dmca_list(
-        self, last: Optional[str] = None,
-    ) -> dict:
+    def dmca_list(self, last: Optional[str] = None) -> dict:
         """
         Get DMCA reported files list (500 results per page)
 
         Args:
-            last (Optional[str], optional): Last x file got dmca. Defaults to None.
+            last (Optional[str], optional): Last x file got DMCA. Defaults to None.
 
         Returns:
             dict: response
         """
         url = f"{self.base_url}files/dmca?key={self.api_key}"
-        if last != None:
+        if last is not None:
             url += f"&last={last}"
         return self._req(url)
 
-    def deleted_list(
-        self, last: Optional[str] = None,
-    ) -> dict:
+    def deleted_list(self, last: Optional[str] = None) -> dict:
         """
-        Get DMCA reported files list (500 results per page)
+        Get deleted files list (500 results per page)
 
         Args:
             last (Optional[str], optional): Last x files got deleted. Defaults to None.
@@ -93,34 +81,27 @@ class FileMoon:
             dict: response
         """
         url = f"{self.base_url}files/deleted?key={self.api_key}"
-        if last != None:
+        if last is not None:
             url += f"&last={last}"
         return self._req(url)
 
-    def remote_upload(
-        self,
-        direct_link: str,
-        fld_id: Optional[str] = None
-    ) -> dict:
+    def remote_upload(self, direct_link: str, fld_id: Optional[str] = None) -> dict:
         """
         Upload files using direct links
 
         Args:
             direct_link (str): URL to upload
+            fld_id (Optional[str]): Folder ID to upload to. Defaults to None.
 
         Returns:
             dict: response
         """
         url = f"{self.base_url}remote/add?key={self.api_key}&url={direct_link}"
-        if fld_id != None:
-          url += f"&fld_id={folder_id}"
+        if fld_id is not None:
+            url += f"&fld_id={fld_id}"
         return self._req(url)
 
-
-    def reremote_upload(
-        self,
-        file_code: str,
-    ) -> dict:
+    def reremote_upload(self, file_code: str) -> dict:
         """
         To remove remote Upload
 
@@ -130,14 +111,10 @@ class FileMoon:
         Returns:
             dict: response
         """
-        url = f"{self.base_url}remote/remove?key={self.api_key}&file_code={file_code=}"
+        url = f"{self.base_url}remote/remove?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-
-    def remote_upload_status(
-        self,
-        file_code: str,
-    ) -> dict:
+    def remote_upload_status(self, file_code: str) -> dict:
         """
         To check remote Upload status
 
@@ -147,14 +124,10 @@ class FileMoon:
         Returns:
             dict: response
         """
-        url = f"{self.base_url}remote/status?key={self.api_key}&file_code={file_code=}"
+        url = f"{self.base_url}remote/status?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-
-    def file_info(
-        self,
-        file_code: str,
-    ) -> dict:
+    def file_info(self, file_code: str) -> dict:
         """
         To get file info
 
@@ -164,110 +137,92 @@ class FileMoon:
         Returns:
             dict: response
         """
-        url = f"{self.base_url}file/info?key{self.api_key}&file_code={file_code=}"
+        url = f"{self.base_url}file/info?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def file_list(
-        self,
-        fld_id: Optional[str] = None,
-        name: Optional[str] = None,
-        created: Optional[str] = None,
-        public: Optional[str] = None,
-        per_page: Optional[str] = None,
-        page: Optional[str] = None,
-    ) -> dict:
+    def file_list(self,
+                  fld_id: Optional[str] = None,
+                  name: Optional[str] = None,
+                  created: Optional[str] = None,
+                  public: Optional[str] = None,
+                  per_page: Optional[str] = None,
+                  page: Optional[str] = None) -> dict:
         """
         To List A File 
 
         Args:
-        name (str):To Fetch A File By Name
-        created(str): to fetch by created date
-        public(str):to fetch by public media 
-        per_page(str): to fetch by per page
-        page(str): to fetch by page
-        fld_id: to fetch from folder
-        
-        
-            
+            fld_id (Optional[str]): Folder ID to list files from. Defaults to None.
+            name (Optional[str]): To Fetch A File By Name. Defaults to None.
+            created (Optional[str]): To fetch by created date. Defaults to None.
+            public (Optional[str]): To fetch by public media. Defaults to None.
+            per_page (Optional[str]): To fetch by per page. Defaults to None.
+            page (Optional[str]): To fetch by page. Defaults to None.
 
         Returns:
             dict: response
         """
         url = f"{self.base_url}file/list?key={self.api_key}"
-        if fld_id != None:
-          url += f"&fld_id={folder_id}"
-        if page != None:
-          url += f"&page={page}"
-        if per_page += None:
-          url += f"&per_page={per_page}"
-        if public += None:
-          url += f"&public={public}"
-        if created != None:
-          url += f"&created={created}"
-        if name != None:
-          url += f"&name={name}"
+        if fld_id is not None:
+            url += f"&fld_id={fld_id}"
+        if name is not None:
+            url += f"&name={name}"
+        if created is not None:
+            url += f"&created={created}"
+        if public is not None:
+            url += f"&public={public}"
+        if per_page is not None:
+            url += f"&per_page={per_page}"
+        if page is not None:
+            url += f"&page={page}"
         return self._req(url)
 
-
-    def clone_file(
-        self,
-        file_code: str,
-        fld_id: Optional[str] = None,
-    ) -> dict:
+    def clone_file(self, file_code: str, fld_id: Optional[str] = None) -> dict:
         """
         To clone file
 
         Args:
             file_code (str): to clone file
-            fld_id(str): To Clone to specific folder
+            fld_id (Optional[str]): To clone to specific folder. Defaults to None.
 
         Returns:
             dict: response
         """
-        url = f"{self.base_url}file/clone?key={self.api_key}&file_code={file_code=}"
-        if fld_id = None:
-          url += f"&fld_id={fld_id}"
+        url = f"{self.base_url}file/clone?key={self.api_key}&file_code={file_code}"
+        if fld_id is not None:
+            url += f"&fld_id={fld_id}"
         return self._req(url)
 
-    def folder_list(
-        self,
-        fld_id: Optional[str] = None,
-    ) -> dict:
+    def folder_list(self, fld_id: Optional[str] = None) -> dict:
         """
         To get folder list
 
         Args:
-            fld_id (str): to get folder list
+            fld_id (Optional[str]): Folder ID to get list from. Defaults to None.
 
         Returns:
             dict: response
         """
         url = f"{self.base_url}folder/list?key={self.api_key}"
-        if fld_id != None:
-          url = f"&fld_id={fld_id}"
+        if fld_id is not None:
+            url += f"&fld_id={fld_id}"
         return self._req(url)
 
-    def create_folder(
-        self,
-        parent_id: Optional[str] = None,
-        name: str,
-    ) -> dict:
+    def create_folder(self, name: str, parent_id: Optional[str] = None) -> dict:
         """
         To create folder 
 
         Args:
-            parent_id (str): folder parent ID
-            name(str) folder name
+            name (str): Folder name
+            parent_id (Optional[str]): Parent folder ID. Defaults to None.
 
         Returns:
             dict: response
         """
         if name is None:
-          raise ValueError("The 'name' parameter is required.")
-        url = f"{self.base_url}folder/create?key={self.api_key}"
-        if parent_id != None:
-          url += f"&parent_id={parent_id}"
-        url += f"&name={name}"
+            raise ValueError("The 'name' parameter is required.")
+        url = f"{self.base_url}folder/create?key={self.api_key}&name={name}"
+        if parent_id is not None:
+            url += f"&parent_id={parent_id}"
         return self._req(url)
 
     def encode_list(self) -> dict:
@@ -277,17 +232,15 @@ class FileMoon:
         Returns:
             dict: response
         """
-        url = f"{self.base_url}encoding/list?key=={self.api_key}"
+        url = f"{self.base_url}encoding/list?key={self.api_key}"
         return self._req(url)
 
-    def encode_status(self,
-                     file_code: str,
-                     ) -> dict:
+    def encode_status(self, file_code: str) -> dict:
         """
         Get encoding file list
 
         Args:
-           file_code(str): file code check status
+            file_code (str): file code check status
 
         Returns:
             dict: response
@@ -295,12 +248,12 @@ class FileMoon:
         url = f"{self.base_url}encoding/status?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def restart_encode_error(self,
-                             file_code: str,) -> dict:
+    def restart_encode_error(self, file_code: str) -> dict:
         """
-        To Restart encoding error files
+        To restart encoding error files
+
         Args:
-            file_code(str): to restart The Encoding error files
+            file_code (str): to restart the encoding error files
 
         Returns:
             dict: response
@@ -308,12 +261,12 @@ class FileMoon:
         url = f"{self.base_url}encoding/restart?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def delete_encode_error(self, file_code: str,) -> dict:
+    def delete_encode_error(self, file_code: str) -> dict:
         """
-        To Delete Encode Error Files
+        To delete encode error files
 
         Args:
-           file_code(str): To Delete The Encode Error files
+            file_code (str): to delete the encode error files
 
         Returns:
             dict: response
@@ -321,12 +274,12 @@ class FileMoon:
         url = f"{self.base_url}encoding/delete?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def thumb(self, file_code: str,) -> dict:
+    def thumb(self, file_code: str) -> dict:
         """
-        to get Thumbnail image url
+        To get thumbnail image URL
 
         Args:
-          file_code(str): to get thumb url from specific file
+            file_code (str): to get thumbnail URL from specific file
 
         Returns:
             dict: response
@@ -334,12 +287,12 @@ class FileMoon:
         url = f"{self.base_url}images/thumb?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def splash(self, file_code: str,) -> dict:
+    def splash(self, file_code: str) -> dict:
         """
-        To Get Splash From specific File 
+        To get splash image from specific file
 
         Args:
-            file_code (str): to get splash from specific file
+            file_code (str): to get splash image from specific file
 
         Returns:
             dict: response
@@ -347,12 +300,12 @@ class FileMoon:
         url = f"{self.base_url}images/splash?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def vid_preview(self,file_code: str,) -> dict:
+    def vid_preview(self, file_code: str) -> dict:
         """
-        To Get video preview of specific file
+        To get video preview of specific file
 
         Args:
-            To Get Video Preview Of Specific Video File
+            file_code (str): to get video preview of specific file
 
         Returns:
             dict: response

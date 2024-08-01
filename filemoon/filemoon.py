@@ -2,7 +2,7 @@ import requests
 from typing import Optional
 
 class FileMoon:
-        def __init__(self, api_key: str, base_url="https://filemoonapi.com/api/",player_url="https://filemoonapi.com/e/"):
+    def __init__(self, api_key: str, base_url="https://filemoonapi.com/api/", player_url="https://filemoonapi.com/e/"):
         """
         init
 
@@ -26,12 +26,11 @@ class FileMoon:
             r = requests.get(url)
             response = r.json()
             if response["msg"] == "Wrong Auth":
-                Exception("Invalid API key, please check your API key")
+                raise Exception("Invalid API key, please check your API key")
             else:
                 return response
         except ConnectionError as e:
-            Exception(e)
-
+            raise Exception(e)
 
     def info(self) -> dict:
         """
@@ -49,6 +48,7 @@ class FileMoon:
 
         Args:
             last (Optional[str], optional): Last x days report. Defaults to None.
+
         Returns:
             dict: response
         """
@@ -142,13 +142,8 @@ class FileMoon:
         url = f"{self.base_url}file/info?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def f_list(self,
-                  fld_id: Optional[str] = None,
-                  name: Optional[str] = None,
-                  created: Optional[str] = None,
-                  public: Optional[str] = None,
-                  per_page: Optional[str] = None,
-                  page: Optional[str] = None) -> dict:
+    def f_list(self, fld_id: Optional[str] = None, name: Optional[str] = None, created: Optional[str] = None,
+               public: Optional[str] = None, per_page: Optional[str] = None, page: Optional[str] = None) -> dict:
         """
         To List A File 
 

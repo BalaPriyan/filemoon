@@ -326,3 +326,16 @@ class FileMoon:
         """
         url = f"{self.player_url}file_code?c{subnum}_file={sub_url}&c{subnum}_label={sub_name}"
         return self._req(url)
+
+    def info(self,sub_js:str) -> dict:
+        """
+        Get basic info of your account
+
+        Args:
+          sub_js: to add remote subtitle json
+
+        Returns:
+            dict: response
+        """
+        url = f"{self.player_url}file_code?subtitle_json={sub_js}"
+        return self._req(url)

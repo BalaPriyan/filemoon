@@ -37,7 +37,7 @@ from filemoon import FileMoon
 filemoon = FileMoon(api_key='YOUR_API_KEY')
 
 # Get account info
-info = filemoon.account_info()
+info = filemoon.info()
 print(info)
 ```
 
@@ -140,8 +140,8 @@ print(status)
   <summary>To get file information</summary>
 
 ```python
-file_info = filemoon.file_info(file_code='FILE_CODE')
-print(file_info)
+f_info = filemoon.f_info(file_code='FILE_CODE')
+print(f_info)
 ```
 
 </details>
@@ -152,8 +152,8 @@ print(file_info)
   <summary>To list files</summary>
 
 ```python
-file_list = filemoon.file_list(name='example', per_page='10', page='1')
-print(file_list)
+f_list = filemoon.f_list(name='example', per_page='10', page='1')
+print(f_list)
 ```
 
 Optional parameters:
@@ -172,14 +172,14 @@ Optional parameters:
   <summary>To clone a file</summary>
 
 ```python
-clone = filemoon.clone_file(file_code='FILE_CODE')
+clone = filemoon.clone_f(file_code='FILE_CODE')
 print(clone)
 ```
 
 Optional parameter `fld_id` can be used to specify the folder ID.
 
 ```python
-clone = filemoon.clone_file(file_code='FILE_CODE', fld_id='FOLDER_ID')
+clone = filemoon.clone_f(file_code='FILE_CODE', fld_id='FOLDER_ID')
 print(clone)
 ```
 
@@ -191,7 +191,7 @@ print(clone)
   <summary>To get folder list</summary>
 
 ```python
-folders = filemoon.folder_list(fld_id='FOLDER_ID')
+folders = filemoon.fld_list(fld_id='FOLDER_ID')
 print(folders)
 ```
 
@@ -205,14 +205,14 @@ Optional parameter `fld_id` can be used to specify the folder ID.
   <summary>To create a folder</summary>
 
 ```python
-new_folder = filemoon.create_folder(name='New Folder')
+new_folder = filemoon.create_fld(name='New Folder')
 print(new_folder)
 ```
 
 Optional parameter `parent_id` can be used to specify the parent folder ID.
 
 ```python
-new_folder = filemoon.create_folder(name='New Folder', parent_id='PARENT_ID')
+new_folder = filemoon.create_fld(name='New Folder', parent_id='PARENT_ID')
 print(new_folder)
 ```
 
@@ -224,7 +224,7 @@ print(new_folder)
   <summary>Get encoding list</summary>
 
 ```python
-encoding_list = filemoon.encode_list()
+encoding_list = filemoon.en_list()
 print(encoding_list)
 ```
 
@@ -234,7 +234,7 @@ print(encoding_list)
   <summary>Get encoding status</summary>
 
 ```python
-status = filemoon.encode_status(file_code='FILE_CODE')
+status = filemoon.en_status(file_code='FILE_CODE')
 print(status)
 ```
 
@@ -244,7 +244,7 @@ print(status)
   <summary>Restart encoding error files</summary>
 
 ```python
-restart = filemoon.restart_encode_error(file_code='FILE_CODE')
+restart = filemoon.restart_en_error(file_code='FILE_CODE')
 print(restart)
 ```
 
@@ -254,7 +254,7 @@ print(restart)
   <summary>Delete encoding error files</summary>
 
 ```python
-delete = filemoon.delete_encode_error(file_code='FILE_CODE')
+delete = filemoon.delete_en_error(file_code='FILE_CODE')
 print(delete)
 ```
 

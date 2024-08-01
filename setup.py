@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name="filemoon",
-    version="0.1.1",
-    description="Unofficial python api wrapper from https://filemoon.sx",
+    version="0.2.2",
+    description="Unofficial python api wrapper from https://filemoon.sx/api",
     long_description=open("README.md", "r").read(),
     long_description_content_type="text/markdown",
     keywords="api, filemoon, video, hosting",

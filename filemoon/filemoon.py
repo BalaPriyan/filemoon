@@ -2,7 +2,7 @@ import requests
 from typing import Optional
 
 class FileMoon:
-    def __init__(self, api_key: str, base_url: str = 'https://filemoonapi.com/api/', player_url: str = 'https://filemoonapi.com/e/'):
+        def __init__(self, api_key: str, base_url="https://doodapi.com/api/",player_url="https://filemoonapi.com/e/"):
         """
         init
 
@@ -12,6 +12,7 @@ class FileMoon:
         """
         self.api_key = api_key
         self.base_url = base_url
+        self.player_url = player_url
 
     def _req(self, url: str) -> dict:
         """requests to api
@@ -24,12 +25,13 @@ class FileMoon:
         try:
             r = requests.get(url)
             response = r.json()
-            if response.get("msg") == "Wrong Auth":
-                raise Exception("Invalid API key, please check your API key")
+            if response["msg"] == "Wrong Auth":
+                Exception("Invalid API key, please check your API key")
             else:
                 return response
-        except requests.ConnectionError as e:
-            raise Exception(e)
+        except ConnectionError as e:
+            Exception(e)
+
 
     def info(self) -> dict:
         """

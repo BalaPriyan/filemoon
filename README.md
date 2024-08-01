@@ -1,8 +1,25 @@
-# [FileMoon](https://filemoon.sx) API Python Wrapper
+# <h1 align="center"><a href="https://filemoon.sx">FileMoon</a></h1>
+
+FileMoon is a video hosting service were you can upload videos, share & make money.
+
+Don't Have Account? Register <a href="https://filemoon.sx/register">Here</a>
+
+<h2>Features</h2>
+ - HLS Streaming
+ - Unlimited Storage
+ - Faster Encoding
+ - Subtitles Support
+ - Premium bandwidth
+
+ <hr style="border-top: 3px solid #000;">
+
+
+# <h1 align="center"><a href="https://filemoon.sx">FileMoon</a> API Python Wrapper</h1>
 
 This is a Python wrapper for the FileMoon API. It allows you to interact with various endpoints of the FileMoon service to manage files, accounts, and other related operations.
 
 ## Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Methods](#methods)
@@ -21,6 +38,8 @@ This is a Python wrapper for the FileMoon API. It allows you to interact with va
   - [Encoding Operations](#encoding-operations)
   - [Image Operations](#image-operations)
   - [Video Preview](#video-preview)
+  - [Remote Subtitle Management](#remote-subtitle-management)
+  - [Server Management](#server-management)
 
 ## Installation
 
@@ -294,6 +313,60 @@ print(preview)
 
 </details>
 
+### Remote Subtitle Management
+
+<details>
+  <summary>Add a remote subtitle</summary>
+
+```python
+subtitle = filemoon.r_sub(subnum='1', sub_url='https://example.com/subtitle.srt', sub_name='English Subtitles')
+print(subtitle)
+```
+
+</details>
+
+<details>
+  <summary>Add remote subtitle in JSON format</summary>
+
+```python
+json_subtitle = filemoon.r_subjs(sub_js='{"subtitles": [{"url": "https://example.com/subtitle.srt", "label": "English"}]}')
+print(json_subtitle)
+```
+
+</details>
+
+<details>
+  <summary>Add a remote poster</summary>
+
+```python
+poster = filemoon.r_post(r_post='https://example.com/poster.jpg')
+print(poster)
+```
+
+</details>
+
+<details>
+  <summary>Add a remote logo</summary>
+
+```python
+logo = filemoon.r_logo(r_logo='https://example.com/logo.png')
+print(logo)
+```
+
+</details>
+
+### Server Management
+
+<details>
+  <summary>Get upload server URL</summary>
+
+```python
+upload_server = filemoon.up_server()
+print(upload_server)
+```
+
+</details>
+
 ## License
 
 This project is licensed under the MIT License.
@@ -305,3 +378,6 @@ Feel free to submit issues and pull requests to improve the codebase. All contri
 ## Author
 
 Your Name - [BalaPriyan](https://github.com/BalaPriyan)
+
+<hr style="border-top: 3px solid #000;">
+

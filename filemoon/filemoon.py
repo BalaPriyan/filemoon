@@ -31,7 +31,7 @@ class FileMoon:
         except requests.ConnectionError as e:
             raise Exception(e)
 
-    def account_info(self) -> dict:
+    def info(self) -> dict:
         """
         Get basic info of your account
 
@@ -41,7 +41,7 @@ class FileMoon:
         url = f"{self.base_url}account/info?key={self.api_key}"
         return self._req(url)
 
-    def account_stats(self, last: Optional[str] = None) -> dict:
+    def stats(self, last: Optional[str] = None) -> dict:
         """
         Get reports of your account (default last 7 days)
 
@@ -55,7 +55,7 @@ class FileMoon:
             url += f"&last={last}"
         return self._req(url)
 
-    def dmca_list(self, last: Optional[str] = None) -> dict:
+    def dmca(self, last: Optional[str] = None) -> dict:
         """
         Get DMCA reported files list (500 results per page)
 
@@ -70,7 +70,7 @@ class FileMoon:
             url += f"&last={last}"
         return self._req(url)
 
-    def deleted_list(self, last: Optional[str] = None) -> dict:
+    def deleted(self, last: Optional[str] = None) -> dict:
         """
         Get deleted files list (500 results per page)
 
@@ -101,7 +101,7 @@ class FileMoon:
             url += f"&fld_id={fld_id}"
         return self._req(url)
 
-    def reremote_upload(self, file_code: str) -> dict:
+    def remove_rup(self, file_code: str) -> dict:
         """
         To remove remote Upload
 
@@ -114,7 +114,7 @@ class FileMoon:
         url = f"{self.base_url}remote/remove?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def remote_upload_status(self, file_code: str) -> dict:
+    def rup_status(self, file_code: str) -> dict:
         """
         To check remote Upload status
 

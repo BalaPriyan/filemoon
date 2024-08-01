@@ -127,7 +127,7 @@ class FileMoon:
         url = f"{self.base_url}remote/status?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def file_info(self, file_code: str) -> dict:
+    def f_info(self, file_code: str) -> dict:
         """
         To get file info
 
@@ -140,7 +140,7 @@ class FileMoon:
         url = f"{self.base_url}file/info?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def file_list(self,
+    def f_list(self,
                   fld_id: Optional[str] = None,
                   name: Optional[str] = None,
                   created: Optional[str] = None,
@@ -176,7 +176,7 @@ class FileMoon:
             url += f"&page={page}"
         return self._req(url)
 
-    def clone_file(self, file_code: str, fld_id: Optional[str] = None) -> dict:
+    def clone_f(self, file_code: str, fld_id: Optional[str] = None) -> dict:
         """
         To clone file
 
@@ -192,7 +192,7 @@ class FileMoon:
             url += f"&fld_id={fld_id}"
         return self._req(url)
 
-    def folder_list(self, fld_id: Optional[str] = None) -> dict:
+    def fld_list(self, fld_id: Optional[str] = None) -> dict:
         """
         To get folder list
 
@@ -207,7 +207,7 @@ class FileMoon:
             url += f"&fld_id={fld_id}"
         return self._req(url)
 
-    def create_folder(self, name: str, parent_id: Optional[str] = None) -> dict:
+    def create_fld(self, name: str, parent_id: Optional[str] = None) -> dict:
         """
         To create folder 
 
@@ -225,7 +225,7 @@ class FileMoon:
             url += f"&parent_id={parent_id}"
         return self._req(url)
 
-    def encode_list(self) -> dict:
+    def en_list(self) -> dict:
         """
         Get encoding list
 
@@ -235,7 +235,7 @@ class FileMoon:
         url = f"{self.base_url}encoding/list?key={self.api_key}"
         return self._req(url)
 
-    def encode_status(self, file_code: str) -> dict:
+    def en_status(self, file_code: str) -> dict:
         """
         Get encoding file list
 
@@ -248,7 +248,7 @@ class FileMoon:
         url = f"{self.base_url}encoding/status?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def restart_encode_error(self, file_code: str) -> dict:
+    def restart_en_error(self, file_code: str) -> dict:
         """
         To restart encoding error files
 
@@ -261,7 +261,7 @@ class FileMoon:
         url = f"{self.base_url}encoding/restart?key={self.api_key}&file_code={file_code}"
         return self._req(url)
 
-    def delete_encode_error(self, file_code: str) -> dict:
+    def delete_en_error(self, file_code: str) -> dict:
         """
         To delete encode error files
 

@@ -49,7 +49,7 @@ print(info)
   <summary>Get basic info of your account</summary>
 
 ```python
-info = filemoon.account_info()
+info = filemoon.info()
 print(info)
 ```
 
@@ -61,7 +61,7 @@ print(info)
   <summary>Get reports of your account (default last 7 days)</summary>
 
 ```python
-stats = filemoon.account_stats(last='7')
+stats = filemoon.stats(last='7')
 print(stats)
 ```
 
@@ -73,7 +73,7 @@ print(stats)
   <summary>Get DMCA reported files list (500 results per page)</summary>
 
 ```python
-dmca = filemoon.dmca_list(last='7')
+dmca = filemoon.dmca(last='7')
 print(dmca)
 ```
 
@@ -85,7 +85,7 @@ print(dmca)
   <summary>Get deleted files list (500 results per page)</summary>
 
 ```python
-deleted = filemoon.deleted_list(last='7')
+deleted = filemoon.deleted(last='7')
 print(deleted)
 ```
 
@@ -116,7 +116,7 @@ print(upload)
   <summary>To remove remote upload</summary>
 
 ```python
-remove = filemoon.reremote_upload(file_code='FILE_CODE')
+remove = filemoon.remove_rup(file_code='FILE_CODE')
 print(remove)
 ```
 
@@ -128,7 +128,7 @@ print(remove)
   <summary>To check remote upload status</summary>
 
 ```python
-status = filemoon.remote_upload_status(file_code='FILE_CODE')
+status = filemoon.rup_status(file_code='FILE_CODE')
 print(status)
 ```
 

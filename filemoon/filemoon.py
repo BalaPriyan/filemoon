@@ -2,7 +2,7 @@ import requests
 from typing import Optional
 
 class FileMoon:
-    def __init__(self, api_key: str, base_url: str = 'https://filemoonapi.com/api/'):
+    def __init__(self, api_key: str, base_url: str = 'https://filemoonapi.com/api/', player_url: str = 'https://filemoonapi.com/e/'):
         """
         init
 
@@ -311,4 +311,18 @@ class FileMoon:
             dict: response
         """
         url = f"{self.base_url}images/preview?key={self.api_key}&file_code={file_code}"
+        return self._req(url)
+
+    def r_sub(self, subnum: str, sub_url: str, sub_name: str) -> dict:
+        """
+        to add remote subtitle
+
+        Args:
+           subnum(str): subtitle number
+           sub_url(str): subtitle remote url
+           sub_name(str): subtitle name
+        Returns:
+            dict: response
+        """
+        url = f"{self.player_url}file_code?c{subnum}_file={sub_url}&c{subnum}_label={sub_name}"
         return self._req(url)

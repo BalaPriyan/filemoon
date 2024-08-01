@@ -2,7 +2,7 @@ import requests
 from typing import Optional
 
 class FileMoon:
-        def __init__(self, api_key: str, base_url="https://doodapi.com/api/",player_url="https://filemoonapi.com/e/"):
+        def __init__(self, api_key: str, base_url="https://filemoonapi.com/api/",player_url="https://filemoonapi.com/e/"):
         """
         init
 

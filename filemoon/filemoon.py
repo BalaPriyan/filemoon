@@ -329,13 +329,50 @@ class FileMoon:
 
     def r_subjs(self,sub_js:str) -> dict:
         """
-        Get basic info of your account
+        to add remote subtitle json
 
         Args:
-          sub_js: to add remote subtitle json
+          sub_js(str): to add remote subtitle json
 
         Returns:
             dict: response
         """
         url = f"{self.player_url}file_code?subtitle_json={sub_js}"
+        return self._req(url)
+
+
+    def r_post(self, r_post:str) -> dict:
+        """
+        to add remote post to the media
+
+        Args:
+          r_post(str): to add remote poster
+
+        Returns:
+            dict: response
+        """
+        url = f"{self.player_url}file_code?poster={r_post}"
+        return self._req(url)
+
+    def r_logo(self, r_logo:str) -> dict:
+        """
+        to add remote logo to the media
+
+        Args:
+          r_logo(str): to add remote logo
+
+        Returns:
+            dict: response
+        """
+        url = f"{self.player_url}file_code?logo={r_logo}"
+        return self._req(url)
+
+    def up_server(self) -> dict:
+        """
+        To get upload server url
+
+        Returns:
+            dict: response
+        """
+        url = f"{self.base_url}upload/server?key={self.api_key}"
         return self._req(url)
